@@ -4,7 +4,7 @@ putTodo (n, todo) = putStrLn (show n ++ ": " ++ todo)
 prompt :: [String] -> IO ()
 prompt todos = do
     putStrLn ""
-    putStrLn "Current TODO list:"
+    putStrLn "Your current todo list:"
     mapM_ putTodo (zip [0..] todos)
     command <- getLine
     interpret command todos
@@ -14,7 +14,7 @@ interpret ('+':' ':todo) todos = prompt (todo:todos)
 interpret ('-':' ':num ) todos =
     case delete (read num) todos of
         Nothing -> do
-            putStrLn "No TODO entry matches the given number"
+            putStrLn "No todo entry matches the given number"
             prompt todos
         Just todos' -> prompt todos'
 interpret  "q"           todos = return ()
@@ -31,7 +31,7 @@ delete _  []    = Nothing
 
 main = do
     putStrLn "Commands:"
-    putStrLn "+ <String> - Add a TODO entry"
+    putStrLn "+ <String> - Add a entry"
     putStrLn "- <Int>    - Delete the numbered entry"
     putStrLn "q          - Quit"
     prompt []
